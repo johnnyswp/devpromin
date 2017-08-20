@@ -42,7 +42,7 @@
                 @foreach($productos as $producto)
                 <div class="col-md-3 col-sm-6 citem">
                     <div class="cimg">
-                        <a href="{{url('linea-negocio/'.str_slug($producto->linea()).'/'.str_slug($producto->serie).'-'.str_slug($producto->marca()).'-'.str_slug($producto->modelo()).'-'.$producto->id)}}" class="aimg" title="{{$producto->linea().' '.$producto->serie.' '.$producto->marca().' '.$producto->modelo()}}"><img src="{{$producto->image()}}" alt="{{$producto->linea().' '.$producto->serie.' '.$producto->marca().' '.$producto->modelo()}}"></a>
+                        <a href="{{url('linea-negocio/'.str_slug($producto->linea()).'/'.str_slug($producto->nombre).'-'.$producto->id)}}" class="aimg" title="{{$producto->linea().' '.$producto->serie.' '.$producto->marca().' '.$producto->modelo()}}"><img src="{{$producto->image()}}" alt="{{$producto->linea().' '.$producto->serie.' '.$producto->marca().' '.$producto->modelo()}}"></a>
                         <a href="pago-seguro.php" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> Comprar</a>
                         <?php 
 
@@ -52,7 +52,7 @@
 
                     </div>
                     <h5>
-                        <a href="{{url('linea-negocio/'.str_slug($producto->linea()).'/'.str_slug($producto->serie).'-'.str_slug($producto->marca()).'-'.str_slug($producto->modelo()).'-'.$producto->id)}}" class="black" title="{{$producto->linea().' '.$producto->serie.' '.$producto->marca().' '.$producto->modelo()}}">{{$producto->nombre}}</a>
+                        <a href="{{url('linea-negocio/'.str_slug($producto->linea()).'/'.str_slug($producto->nombre).'-'.$producto->id)}}" class="black" title="{{$producto->linea().' '.$producto->serie.' '.$producto->marca().' '.$producto->modelo()}}">{{$producto->nombre}}</a>
                         <small>{{$producto->modelo()}}</small>
                     </h5>
                     

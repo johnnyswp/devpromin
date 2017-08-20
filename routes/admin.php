@@ -47,7 +47,7 @@ Route::group(['middleware' => ['auth','admin'],'prefix' => 'admin'], function ()
         }
         if($producto->mx==1){
             $pdf = PDF::loadView('admin.pdf.producto', ['producto'=>$producto]);
-            return $pdf->download('reporte-de-mx-'.$producto->id.'-'.$producto->tipo().'-'.$producto->serie.'.pdf');
+            return $pdf->download('reporte-de-'.$producto->nombre.'.pdf');
         }else{
             return view('404');
         }
@@ -92,8 +92,8 @@ Route::group(['middleware' => ['auth','admin'],'prefix' => 'admin'], function ()
 
         if($producto->mx==1){
             $pdf = PDF::loadView('admin.pdf.producto', ['documentos'=>$documentos, 'bitacoras'=>$bitacoras, 'producto'=>$producto,'gastos'=>$gastos]);
-            $pdf->save(base_path('asset_admin/pdfs/producto.pdf'));
-            Mail::to(explode(',', $req->mail))->send(new ProductoSend($producto, base_path('asset_admin/pdfs/producto.pdf')));
+            $pdf->save(base_path('asset_admin/pdfs/'.$producto->nombre.'.pdf'));
+            Mail::to(explode(',', $req->mail))->send(new ProductoSend($producto, base_path('asset_admin/pdfs/'.$producto->nombre.'.pdf')));
             return "Exito";
         }else{
             return view('404');

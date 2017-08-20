@@ -132,17 +132,22 @@ class HomeController extends Controller
         $linea_id = array_reverse(explode('-',$name))[0];
 
         $lineas = LineaNegocio::pluck('nombre', 'id')->toArray();
-        $lineas[''] = "Selecciones una opcion";
+        $lineas[''] = "Lineas de Negocios";
 
         $marcas = Marca::pluck('nombre', 'id')->toArray();
-        $marcas[''] = "Selecciones una opcion";
+        $marcas[''] = "Marcas";
 
         $tipos = TipoProducto::where('linea_negocio_id',$linea_id)->pluck('nombre', 'id')->toArray();
-        $tipos[''] = "Selecciones una opcion";
+        $tipos[''] = "Tipo de Productos";
 
         $linea = LineaNegocio::findOrFail($linea_id);
 
         $productos = Producto::where('linea_negocio_id', $linea_id);
+
+        if($request->linea!="" and $request->linea!=0){
+            $linea = LineaNegocio::findOrFail($request->linea);
+            return redirect('linea-negocio/'.str_slug($linea->nombre).'-'.$linea->id);
+        }
 
         if($request->tipo!="" and $request->tipo!=0){
             $marcas = Marca::where('tipo_producto_id',$request->tipo)->pluck('nombre', 'id')->toArray();

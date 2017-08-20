@@ -490,8 +490,11 @@ class HomeController extends Controller
     public function getWishlist(Request $request){
         
         if(!$_POST){
-            $accesos = DB::table('users')->join('role_user', 'role_user.user_id', '=', 'users.id')->join('roles', 'role_user.role_id', '=', 'roles.id')->where('roles.name','cliente')->select('users.name as nombre', 'users.id as id')->get();
-            $lineas = LineaNegocio::where('tipo','mx')->get();
+            $accesos = DB::table('users')->join('role_user', 'role_user.user_id', '=', 'users.id')->join('roles', 'role_user.role_id', '=', 'roles.id')->where('roles.name','cliente')->select('users.name as nombre', 'users.id as id')->orderBy('users.name', 'ASC')->get();
+            $lineas = DB::table('productos')->join('linea_negocios', 'linea_negocios.id', '=', 'productos.linea_negocio_id')
+                                        ->select('linea_negocios.id as id', 'linea_negocios.nombre as nombre')
+                                        ->groupBy('linea_negocios.id')
+                                        ->get();
 
             return view('admin.report.reporte-wishlists')->with(['clientes'=>$accesos, 'lineas'=>$lineas]);
         }else{

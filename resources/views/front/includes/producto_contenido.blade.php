@@ -19,7 +19,7 @@
                         @if($producto->mx==0)
                         <li class="active">{{$producto->codigo}} {{$producto->tipo()}} {{$producto->marca()}} {{$producto->modelo()}}</li>
                         @else
-                        <li class="active">{{$producto->serie}} {{$producto->modelo()}}</li>
+                        <li class="active">{{$producto->nombre}}</li>
                         @endif
                     </ol>
                 </div>
@@ -93,12 +93,7 @@
             <!-- Descripción Producto -->
             <div class="col-sm-6">
                 <div class="row">
-                    @if($producto->mx==0)
-                        <h1>{{$producto->codigo}} {{$producto->tipo()}} {{$producto->marca()}} {{$producto->modelo()}}</h1>
-                    @else
-                        <h1>{{$producto->serie}} {{$producto->modelo()}}</h1>
-                    @endif
-                    
+                        <h1>{{$producto->nombre}}</h1>
                     <div class="cost">
                         <span class="new">$ {{number_format($producto->priceVenta, 2, '.', ',')}}</span>
                     </div>
@@ -170,11 +165,7 @@
                     <div class="tab-pane fade in active" id="description">
                         <div class="row">
                             <div class="col-sm-4">
-                            @if($producto->mx==0)
-                                <h2>{{$producto->codigo}} {{$producto->tipo()}} {{$producto->marca()}} {{$producto->modelo()}}</h2>
-                            @else
-                                <h2>{{$producto->serie}} {{$producto->modelo()}}</h2>
-                            @endif
+                                <h2>{{$producto->nombre}}</h2>
                                 <a href="{{url('linea-negocio/'.str_slug($producto->linea()).'-'.$producto->linea_negocio_id)}}" class="btn_ver_catalogo"><i class="fa fa-search"></i> Ver Catálogo {{$producto->linea()}}</a><!-- aquí va la línea de negocio, en este ejemplo es KCP-->
                                 <br><br>
                             </div>
@@ -182,10 +173,12 @@
                                 <div class="tab-responsive">
                                     <table class="table table-bordered table-condensed">
                                         <tbody>
+                                        @if($producto->mx==1)
                                             <tr>
                                                 <td class="bg_blanco">SKU</td>
-                                                <td class="bg_blanco">{{$producto->serie}} {{$producto->modelo()}}</td>
+                                                <td class="bg_blanco">MX-{{$producto->id}}-{{$producto->tipo()}}- {{$producto->serie}} </td>
                                             </tr>
+                                        @endif
                                             <tr>
                                                 <td class="bg_blanco">Marca</td>
                                                 <td class="bg_blanco">{{$producto->marca()}}</td>
