@@ -360,6 +360,8 @@ return [
 
         Barryvdh\DomPDF\ServiceProvider::class,
 
+        Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
+
 
 
     ],
@@ -467,6 +469,8 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
 
         'PDF' => Barryvdh\DomPDF\Facade::class,
+
+        'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
 
 
 
