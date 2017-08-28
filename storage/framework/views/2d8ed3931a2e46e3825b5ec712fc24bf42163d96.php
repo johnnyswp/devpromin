@@ -57,9 +57,9 @@
                         <nav>
 
                             <ul class="nav navbar-nav">
-                                <li {{ (Request::is('/') ? 'class=active' : '') }} > <a href="/">Inicio</a> </li>
+                                <li <?php echo e((Request::is('/') ? 'class=active' : '')); ?> > <a href="/">Inicio</a> </li>
 
-                                <li {{ (Request::is('nosotros') ? 'class=active' : '') }}> <a href="/nosotros">Nosotros</a> </li>
+                                <li <?php echo e((Request::is('nosotros') ? 'class=active' : '')); ?>> <a href="/nosotros">Nosotros</a> </li>
 
                                 <li class="dropdown">
                                     <a data-toggle="dropdown"  class="dropdown-toggle" href="#">Catálogo</a>
@@ -68,22 +68,22 @@
                                         
                                         $lineas = \DB::table('productos')->join('linea_negocios', 'linea_negocios.id', '=', 'productos.linea_negocio_id')
                                         ->select('linea_negocios.id as id', 'linea_negocios.nombre as nombre')
-                                        ->groupBy('linea_negocios.nombre')
+                                        ->groupBy('linea_negocios.id')
                                         ->get(); 
                                         ?>
-                                        @foreach($lineas as $linea)
+                                        <?php $__currentLoopData = $lineas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $linea): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <li>
-                                            <a href="{{url('linea-negocio/'.str_slug($linea->nombre).'-'.$linea->id)}}">{{$linea->nombre}}</a>
+                                            <a href="<?php echo e(url('linea-negocio/'.str_slug($linea->nombre).'-'.$linea->id)); ?>"><?php echo e($linea->nombre); ?></a>
                                         </li>
-                                        @endforeach
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                                     </ul>
 
                                 </li>
-                                <li {{ (Request::is('noticias') ? 'class=active' : '') }}>
+                                <li <?php echo e((Request::is('noticias') ? 'class=active' : '')); ?>>
                                     <a href="/noticias">Noticias</a>
                                 </li>
-                                <li {{ (Request::is('contacto') ? 'class=active' : '') }}>
+                                <li <?php echo e((Request::is('contacto') ? 'class=active' : '')); ?>>
                                     <a href="/contacto">Contacto</a>
                                 </li>
 

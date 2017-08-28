@@ -131,14 +131,13 @@ class HomeController extends Controller
     {
         $linea_id = array_reverse(explode('-',$name))[0];
 
-        $lineas = LineaNegocio::pluck('nombre', 'id')->toArray();
-        $lineas[''] = "Lineas de Negocios";
+        $lineas = DB::table('productos')->join('linea_negocios', 'linea_negocios.id', '=', 'productos.linea_negocio_id')
+                                        ->select('linea_negocios.id as id', 'linea_negocios.nombre as nombre')
+                                        ->groupBy('linea_negocios.id')->orderBy('nombre', 'ASC')->get();
 
-        $marcas = Marca::pluck('nombre', 'id')->toArray();
-        $marcas[''] = "Marcas";
+        $marcas = Marca::orderBy('nombre', 'ASC')->orderBy('nombre', 'ASC')->get();
 
-        $tipos = TipoProducto::where('linea_negocio_id',$linea_id)->pluck('nombre', 'id')->toArray();
-        $tipos[''] = "Tipo de Productos";
+        $tipos = TipoProducto::where('linea_negocio_id',$linea_id)->orderBy('nombre', 'ASC')->get();
 
         $linea = LineaNegocio::findOrFail($linea_id);
 
@@ -150,8 +149,7 @@ class HomeController extends Controller
         }
 
         if($request->tipo!="" and $request->tipo!=0){
-            $marcas = Marca::where('tipo_producto_id',$request->tipo)->pluck('nombre', 'id')->toArray();
-            $marcas[''] = "Selecciones una opcion";
+            $marcas = Marca::where('tipo_producto_id',$request->tipo)->orderBy('nombre', 'ASC')->get();
 
             $productos= $productos->where('tipo_producto_id', $request->tipo); 
         }
@@ -178,10 +176,10 @@ class HomeController extends Controller
 
         $linea = LineaNegocio::findOrFail($tipo->linea_negocio_id);
 
-        $marcas = Marca::where('tipo_producto_id',$id)->pluck('nombre', 'id')->toArray();
+        $marcas = Marca::where('tipo_producto_id',$id)->orderBy('nombre', 'ASC')->get();
         $marcas[''] = "Todas";
 
-        $tipos = TipoProducto::where('linea_negocio_id',$tipo->linea_negocio_id)->pluck('nombre', 'id')->toArray();
+        $tipos = TipoProducto::where('linea_negocio_id',$tipo->linea_negocio_id)->orderBy('nombre', 'ASC')->get();
 
         $productos = Producto::where('tipo_producto_id', $id);
 

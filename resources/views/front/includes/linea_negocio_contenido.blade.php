@@ -11,17 +11,31 @@
                 </div>
             </div>
         </div>
-        <form method="GET">
+        <form method="GET" action="">
         <div class="container sorting no_pad_top">
             <div class="row">
                 <div class="col-sm-3">
-                    {{Form::select('linea', $lineas, $input->linea, ['class'=>'form-control', 'id'=>'linea', 'onChange'=>'this.form.submit()'])}}
+                <select class="form-control" name="linea" id="linea" onchange="this.form.submit()">
+                    @foreach($lineas as $val)
+                        <option value="{{$val->id}}" @if($val->id==$linea->id) selected="selected" @endif>{{$val->nombre}}</option>
+                    @endforeach
+                </select>
                 </div>
                 <div class="col-sm-3">
-                    {{Form::select('tipo', $tipos, $input->tipo, ['class'=>'form-control', 'id'=>'tipos', 'onChange'=>'this.form.submit()'])}}
+                    <select class="form-control" name="tipo" id="tipos" onchange="this.form.submit()">
+                    <option value="">Todos los Tipo de Productos</option>
+                    @foreach($tipos as $val)
+                        <option value="{{$val->id}}" @if($val->id==$input->tipo) selected="selected" @endif>{{$val->nombre}}</option>
+                    @endforeach
+                </select>
                 </div>
                 <div class="col-sm-3">
-                    {{Form::select('marca', $marcas, $input->marca, ['class'=>'form-control', 'id'=>'marcas', 'onChange'=>'this.form.submit()'])}}
+                    <select class="form-control" name="marca" id="marcas" onchange="this.form.submit()">
+                    <option value="">Todas las Marcas</option>
+                    @foreach($tipos as $val)
+                        <option value="{{$val->id}}" @if($val->id==$input->marca) selected="selected" @endif>{{$val->nombre}}</option>
+                    @endforeach
+                </select>
                 </div>
                 <div class="col-sm-3 text-right grid-show">
                     <span>Mostrar</span>
@@ -38,18 +52,13 @@
             <div class="row text-center">
                 @foreach($productos as $producto)
                 <div class="col-md-3 col-sm-6 citem">
-                    <div class="cimg">
-                        <a href="{{url('linea-negocio/'.str_slug($producto->nombre).'-'.$producto->id)}}" class="aimg" title="{{$producto->nombre}}"><img src="{{$producto->image()}}" alt="{{$producto->nombre}}"></a>
+                    <div class="cimg" style="min-height: 200px; max-height: 200px;">
+                        <a href="{{url('linea-negocio/'.str_slug($producto->linea()).'/'.str_slug($producto->nombre).'-'.$producto->id)}}" class="aimg" title="{{$producto->nombre}}"><img src="{{$producto->image()}}" alt="{{$producto->nombre}}"></a>
                         <a href="pago-seguro.php" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> Comprar</a>
-                        <?php 
-
-                        #if()
-                        ?>
                         <a href="#whish" class="btn btn2 whish " producto='{{$producto->id}}'><i class="fa fa-heart corazon"></i></a>
-
                     </div>
                     <h5>
-                        <a href="{{url('linea-negocio/'.str_slug($producto->nombre).'-'.$producto->id)}}" class="black" title="{{$producto->nombre}}">{{$producto->nombre}}</a>
+                        <a href="{{url('linea-negocio/'.str_slug($producto->linea()).'/'.str_slug($producto->nombre).'-'.$producto->id)}}" class="black" title="{{$producto->nombre}}">{{$producto->nombre}}</a>
                         <small>{{$producto->modelo()}}</small>
                     </h5>
                     

@@ -101,19 +101,19 @@ class ClientesController extends Controller
         }
 
         if($request->buscar!=""){
-            $users =  $users->where('name','like','%'.$request->buscar.'%');
+            $users =  $users->where('users.name','like','%'.$request->buscar.'%');
         }
 
         if($request->order=="asc" or $request->order=="desc"){
-            $users = $users->orderBy('name',$request->order);
+            $users = $users->orderBy('users.name',$request->order);
         }
 
         if($request->order=="new"){
-            $users = $users->orderBy('created_at', 'DESC');
+            $users = $users->orderBy('users.created_at', 'DESC');
         }
 
         if($request->order=="old"){
-            $users = $users->orderBy('created_at', 'ASC');
+            $users = $users->orderBy('users.created_at', 'ASC');
         }
 
          if($request->numb!=""){
